@@ -35,4 +35,7 @@ public class TvChannelModel {
         return liveShow;
     }
 
+    public List<TvShowModel> getList() {
+        return list;
+    }
 }

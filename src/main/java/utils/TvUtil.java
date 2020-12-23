@@ -1,10 +1,10 @@
-package Utils;
+package utils;
 
 import com.google.gson.Gson;
 import model.TvChannelModel;
 
-import static Utils.HttpUrl.TV_CHANNEL_INFO;
-import static Utils.HttpUrl.json;
+import static utils.HttpUrl.TV_CHANNEL_INFO;
+import static utils.HttpUrl.json;
 
 /**
  * 获取电视信息工具类

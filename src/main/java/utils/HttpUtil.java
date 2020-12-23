@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
