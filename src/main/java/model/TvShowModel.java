@@ -7,19 +7,19 @@ public class TvShowModel {
     private String channelId;
     @SerializedName("tv_show_id")
     private String tvShowId;
-    @SerializedName("tv_show_name")
+    @SerializedName("title")
     private String tvShowName;
-    @SerializedName("show_start_time")
+    @SerializedName("startTime")
     private int showStartTime;
-    @SerializedName("show_end_time")
+    @SerializedName("endTime")
     private int showEndTime;
-    public String getChannelId() {
-        return channelId;
-    }
+    @SerializedName("showTime")
+    private String showTime;
+    @SerializedName("length")
+    private int lastTime;
+    @SerializedName("columnBackvideourl")
+    private String columnBackVideoUrl;
 
-    public String getTvShowId() {
-        return tvShowId;
-    }
 
     public String getTvShowName() {
         return tvShowName;
@@ -31,5 +31,25 @@ public class TvShowModel {
 
     public int getShowEndTime() {
         return showEndTime;
+    }
+
+    public String getShowTime() {
+        return showTime;
+    }
+
+    public int getLastTime() {
+        return lastTime;
+    }
+
+    public String getColumnBackVideoUrl() {
+        return columnBackVideoUrl;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public String getTvShowId() {
+        return tvShowId;
     }
 }
