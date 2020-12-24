@@ -41,7 +41,6 @@ public class SubscribeView extends JFrame {
         userLabel.setFont(new Font("宋体", Font.BOLD, 20));
         userLabel.setBounds(50, 35, 200, 20);
         menuPanel.add(userLabel);
-        container.add(menuPanel, "Center");
         /*按钮部分*/
         Font ButtonFont = new Font("宋体", Font.PLAIN, 18);
         showTvshows.setBounds(165, 100, 250, 30);
@@ -56,15 +55,18 @@ public class SubscribeView extends JFrame {
         menuPanel.add(showChannels);
         menuPanel.add(subTvshows);
         menuPanel.add(subChannels);
+        container.add(menuPanel, "Center");
     }
 
     private void addListener() {
         subTvshows.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                menuPanel.setVisible(false);
                 SubTvShowView subTvShowView = SubscribeController.getInstance().goToSubShows();
-                container.add(subTvShowView);
+                JFrame jFrame=new JFrame();
+                jFrame.setBounds(400, 200, 600, 500);
+                jFrame.add(subTvShowView,"Center");
                 subTvShowView.setVisible(true);
+                jFrame.setVisible(true);
             }
         });
     }
