@@ -24,17 +24,24 @@ public class SubscribeController {
         }
     }
 
-    public SubTvShowView goToSubShows() {
+    public void getTvInfo() {
         tvChannelInfo = TvUtil.getInstance().getChannelInfo();
+    }
+
+    public SubTvShowView goToSubShows() {
+        if (tvChannelInfo == null) {
+            getTvInfo();
+        }
         tvShows = tvChannelInfo.getList();
-        String[][] tvShowInfo = new String[tvShows.size()][2];
-        String[] title = {"节目名", "开始时间"};
+        String[][] tvShowInfo = new String[tvShows.size()][4];
+        String[] title = {"订阅","开始时间", "节目名", "订阅情况"};
         Iterator<TvShowModel> iterator = tvShows.iterator();
         int count = 0;
         while (iterator.hasNext()) {
             TvShowModel tvShowModel = iterator.next();
-            tvShowInfo[count][0] = tvShowModel.getTvShowName();
             tvShowInfo[count][1] = tvShowModel.getShowTime();
+            tvShowInfo[count][2] = tvShowModel.getTvShowName();
+            tvShowInfo[count][3] = tvShowModel.isSub()?"已订阅":"未订阅";
             count++;
         }
         subTvShowView = new SubTvShowView(tvShowInfo, title);

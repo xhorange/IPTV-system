@@ -1,5 +1,6 @@
 package main;
 
+import controller.SubscribeController;
 import view.LoginView;
 import view.SubscribeView;
 
@@ -16,6 +17,7 @@ public class MainSystem {
             @Override
             public void onEnd() {
                 subscribeView = new SubscribeView(new Callback());
+                SubscribeController.getInstance().getTvInfo();
             }
         });
     }
