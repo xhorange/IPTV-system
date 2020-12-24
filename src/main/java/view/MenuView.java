@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class SubscribeView extends JFrame {
+public class MenuView extends JFrame {
     Callback callback;
     private Container container = getContentPane();
     private JPanel menuPanel = new JPanel();
@@ -20,7 +20,7 @@ public class SubscribeView extends JFrame {
     private JButton subTvshows = new JButton("订阅节目");
     private JButton subChannels = new JButton("订阅频道");
 
-    public SubscribeView(Callback callback) {
+    public MenuView(Callback callback) {
         this.callback = callback;
         setTitle("欢迎登录网络电视频道订阅系统");
         // 设计窗体大小
@@ -61,11 +61,11 @@ public class SubscribeView extends JFrame {
     private void addListener() {
         subTvshows.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SubTvShowView subTvShowView = SubscribeController.getInstance().goToSubShows();
+                SubView subView = SubscribeController.getInstance().goToSubShows();
                 JFrame jFrame=new JFrame();
                 jFrame.setBounds(400, 200, 600, 500);
-                jFrame.add(subTvShowView,"Center");
-                subTvShowView.setVisible(true);
+                jFrame.add(subView,"Center");
+                subView.setVisible(true);
                 jFrame.setVisible(true);
             }
         });

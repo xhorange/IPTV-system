@@ -3,15 +3,14 @@ package controller;
 import model.TvChannelModel;
 import model.TvShowModel;
 import utils.TvUtil;
-import view.SubTvShowView;
+import view.SubView;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 public class SubscribeController {
     private static SubscribeController subscribeController;
-    private SubTvShowView subTvShowView;
+    private SubView subView;
     private TvChannelModel tvChannelInfo;
     private List<TvShowModel> tvShows;
 
@@ -28,7 +27,7 @@ public class SubscribeController {
         tvChannelInfo = TvUtil.getInstance().getChannelInfo();
     }
 
-    public SubTvShowView goToSubShows() {
+    public SubView goToSubShows() {
         if (tvChannelInfo == null) {
             getTvInfo();
         }
@@ -44,7 +43,10 @@ public class SubscribeController {
             tvShowInfo[count][3] = tvShowModel.isSub()?"已订阅":"未订阅";
             count++;
         }
-        subTvShowView = new SubTvShowView(tvShowInfo, title);
-        return subTvShowView;
+        subView = new SubView(tvShowInfo, title);
+        return subView;
     }
+
+
 }
+

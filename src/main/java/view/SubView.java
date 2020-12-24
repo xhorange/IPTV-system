@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class SubTvShowView extends JPanel {
+public class SubView extends JPanel {
     private JTable table;
 
-    public SubTvShowView(String[][] info, String[] title) {
+    public SubView(String[][] info, String[] title) {
         setLayout(new BorderLayout());
         table = new JTable(info, title);
         final JRadioButton box = new JRadioButton();

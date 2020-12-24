@@ -2,13 +2,14 @@ package main;
 
 import controller.SubscribeController;
 import view.LoginView;
-import view.SubscribeView;
+import view.MenuView;
+import view.SubView;
 
 public class MainSystem {
     private LoginView loginView;
-    private SubscribeView subscribeView;
+    private MenuView menuView;
 
-    public void init() {
+    public MainSystem() {
         initLoginView();
     }
 
@@ -16,7 +17,7 @@ public class MainSystem {
         loginView = new LoginView(new Callback() {
             @Override
             public void onEnd() {
-                subscribeView = new SubscribeView(new Callback());
+                menuView = new MenuView(new Callback());
                 SubscribeController.getInstance().getTvInfo();
             }
         });
