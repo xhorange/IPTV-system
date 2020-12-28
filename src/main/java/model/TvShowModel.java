@@ -4,9 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class TvShowModel {
     @SerializedName("channel_id")
-    private String channelId;
+    private String channelName;
     @SerializedName("tv_show_id")
-    private String tvShowId;
+    private int tvShowId;
+    @SerializedName("tv_channel_id")
+    private int channelId;
     @SerializedName("title")
     private String tvShowName;
     @SerializedName("showTime")
@@ -14,8 +16,15 @@ public class TvShowModel {
     @SerializedName("columnBackvideourl")
     private String columnBackVideoUrl;
     @SerializedName("is_sub")
-    private boolean isSub;
+    private boolean isSub = true;
 
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public void setSub(boolean sub) {
+        isSub = sub;
+    }
 
     public String getTvShowName() {
         return tvShowName;
@@ -29,12 +38,16 @@ public class TvShowModel {
         return columnBackVideoUrl;
     }
 
-    public String getChannelId() {
-        return channelId;
+    public String getChannelName() {
+        return channelName;
     }
 
-    public String getTvShowId() {
+    public int getTvShowId() {
         return tvShowId;
+    }
+
+    public int getChannelId() {
+        return channelId;
     }
 
     public boolean isSub() {
