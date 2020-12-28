@@ -3,7 +3,6 @@ package controller;
 import main.Callback;
 import model.TvChannelModel;
 import model.TvShowModel;
-import org.jetbrains.annotations.NotNull;
 import utils.TvUtil;
 import view.SubView;
 
@@ -14,8 +13,10 @@ public class SubscribeController {
     private static SubscribeController subscribeController;
     private SubView subView;
     private TvChannelModel tvChannelInfo;
-    private List<TvShowModel> tvShows;
+    private List<TvShowModel> AllTvShows;
     private List<TvShowModel> subTvShows;
+    private List<TvChannelModel> allChannels;
+    private List<TvChannelModel> SubChannels;
 
     public static SubscribeController getInstance() {
         synchronized (UserController.class) {
@@ -32,9 +33,9 @@ public class SubscribeController {
 
     public void getTvInfo(Callback callback) {
         tvChannelInfo = TvUtil.getInstance().getChannelInfo();
-        tvShows = tvChannelInfo.getList();
+        AllTvShows = tvChannelInfo.getList();
         subTvShows = new ArrayList<TvShowModel>();
-        Iterator<TvShowModel> iterator = tvShows.iterator();
+        Iterator<TvShowModel> iterator = AllTvShows.iterator();
         //初始化所有节目和关注节目队列
         while (iterator.hasNext()) {
             TvShowModel tvShowModel = iterator.next();
@@ -48,15 +49,25 @@ public class SubscribeController {
     }
 
     public SubView goToSubShows() {
-        return ShowTvShows(tvShows);
+        return showTvShows(AllTvShows);
     }
 
     public SubView showSubSHows() {
 
-        return ShowTvShows(subTvShows);
+        return showTvShows(subTvShows);
     }
 
-    public SubView ShowTvShows(List<TvShowModel> tvShows) {
+    public SubView goToSubChannels() {
+        return showChannels(allChannels);
+    }
+
+    public SubView showSubChannels() {
+
+        return showChannels(allChannels);
+    }
+
+
+    public SubView showTvShows(List<TvShowModel> tvShows) {
         if (tvShows == null) {
             getTvInfo();
         }
@@ -80,11 +91,29 @@ public class SubscribeController {
     public void subscribeShow(JTable table) {
         int index = table.getSelectedRow();
         //int showID = Integer.parseInt((String) table.getValueAt(index, 5));
-        TvShowModel selectedTvShow = tvShows.get(index);
+        TvShowModel selectedTvShow = AllTvShows.get(index);
         selectedTvShow.setSub(!selectedTvShow.isSub());
-        table.setValueAt(selectedTvShow.isSub() ? "已订阅" : "未订阅",index,4);
+        table.setValueAt(selectedTvShow.isSub() ? "已订阅" : "未订阅", index, 4);
         // TODO: 2020/12/28 修改关注列表
     }
 
+    public SubView showChannels(List<TvChannelModel> channelList) {
+        if (channelList == null) {
+            getTvInfo();
+        }
+        String[][] tvShowInfo = new String[AllTvShows.size()][3];
+        String[] title = {"选中", "频道名", "订阅情况"};
+        Iterator<TvShowModel> iterator = AllTvShows.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            TvShowModel tvShowModel = iterator.next();
+            tvShowInfo[count][1] = tvShowModel.getChannelName();
+            tvShowInfo[count][2] = tvShowModel.isSub() ? "已订阅" : "未订阅";
+            tvShowInfo[count][3] = String.valueOf(tvShowModel.getTvShowId());
+            count++;
+        }
+        subView = new SubView(tvShowInfo, title);
+        return subView;
+    }
 }
 

@@ -6,8 +6,10 @@ import main.Callback;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 import static controller.UserController.LOGIN_SUCCESS;
 import static controller.UserController.USER_OR_PASSWORD_NULL;
+
 public class LoginView extends JFrame {
     private JTextField usernameField = new JTextField();
     private JPasswordField passwordField = new JPasswordField();
@@ -16,7 +18,7 @@ public class LoginView extends JFrame {
     Callback callback;
 
     public LoginView(Callback callback) {
-        this.callback=callback;
+        this.callback = callback;
         // 初始化窗口和监听
         initView();
         initLister();
@@ -74,7 +76,6 @@ public class LoginView extends JFrame {
                     }
                 });
         /** 注册 */
-
         registerBtn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {

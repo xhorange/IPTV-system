@@ -66,15 +66,12 @@ public class MenuView extends JFrame {
     }
 
     private void addListener() {
+        //订阅节目
         subTvshows.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SubView subView = SubscribeController.getInstance().goToSubShows();
-                JFrame jFrame = new JFrame();
-                jFrame.setTitle("订阅节目");
-                jFrame.setBounds(400, 200, 600, 500);
-                jFrame.add(subView, "Center");
+                subView.setTitle("订阅节目");
                 subView.setVisible(true);
-                jFrame.setVisible(true);
             }
         });
         /** 查看已订阅的节目信息*/
@@ -82,30 +79,27 @@ public class MenuView extends JFrame {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         SubView subView = SubscribeController.getInstance().showSubSHows();
-                        JFrame jFrame = new JFrame();
-                        jFrame.setTitle("已订阅节目");
-                        jFrame.setBounds(400, 200, 600, 500);
-                        jFrame.add(subView, "Center");
+                        subView.setTitle("查看已订阅节目");
                         subView.setVisible(true);
-                        jFrame.setVisible(true);
                     }
                 });
-
-//        /** 查看已订阅的频道信息*/
-//        showChannels.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent e) {
-//                        String s = "已订阅的频道信息如下：\n\n";
-//                        s += "频道名称     " + "频道序号  " + "\n";
-//                        int channels_num = -1;//订阅的频道个数
-//                        for (int j = 0; j < channels_num; j++) {
-//                            //if(channels[j].isLiked()==true){
-//                            //  s +=channels[j].get_name()+"     "+channels[j].get_cid();
-//                            //}
-//                            s += "\n";
-//                        }
-//                        JOptionPane.showMessageDialog(null, s, "查询结果", JOptionPane.CLOSED_OPTION);
-//                    }
-//                });
+        showChannels.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        SubView subView = SubscribeController.getInstance().showSubChannels();
+                        subView.setTitle("查看已订阅频道");
+                        subView.setVisible(true);
+                    }
+                }
+        );
+        subChannels.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        SubView subView = SubscribeController.getInstance().goToSubChannels();
+                        subView.setTitle("查看已订阅频道");
+                        subView.setVisible(true);
+                    }
+                }
+        );
     }
 }

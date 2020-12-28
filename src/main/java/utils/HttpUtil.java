@@ -35,10 +35,7 @@ public class HttpUtil {
         try {
             Response response = okHttpClient.newCall(request).execute();
             if (response.code() == 200) {
-                //log.info("http GET 请求成功; [url={}]", url);
                 return response.body().string();
-            } else {
-                //log.warn("Http GET 请求失败; [errorCode = {} , url={}]", response.code(), url);
             }
         } catch (IOException e) {
             throw new RuntimeException("同步http GET 请求失败,url:" + url, e);

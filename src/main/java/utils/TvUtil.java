@@ -28,8 +28,8 @@ public class TvUtil {
      */
     public TvChannelModel getChannelInfo() {
         String channelInfo = HttpUtil.getInstance().getInfo(TV_CHANNEL_INFO);
-        if (channelInfo==null){
-            channelInfo=json;
+        if (channelInfo == null) {
+            channelInfo = json;
         }
         Gson gson = new Gson();
         TvChannelModel tvChannelModel = gson.fromJson(json, TvChannelModel.class);
