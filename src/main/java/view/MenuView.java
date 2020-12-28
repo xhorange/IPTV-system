@@ -21,18 +21,25 @@ public class MenuView extends JFrame {
     private JButton subChannels = new JButton("订阅频道");
 
     public MenuView(Callback callback) {
-        this.callback = callback;
         setTitle("欢迎登录网络电视频道订阅系统");
         // 设计窗体大小
         setBounds(400, 200, 600, 500);
         // 添加一块桌布
         container.setLayout(new BorderLayout());
+        JLabel loadingLabel = new JLabel("加载中...");
+        container.add(loadingLabel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // 初始化窗口
-        init();
-        addListener();
-        // 设计窗口可见
         setVisible(true);
+        //网络连接获取数据
+        this.callback = callback;
+        SubscribeController.getInstance().getTvInfo(new Callback() {
+            @Override
+            public void onEnd() {
+                container.removeAll();
+                init();
+                addListener();
+            }
+        });
     }
 
     private void init() {
@@ -62,10 +69,57 @@ public class MenuView extends JFrame {
         subTvshows.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SubView subView = SubscribeController.getInstance().goToSubShows();
-                JFrame jFrame=new JFrame();
+                JFrame jFrame = new JFrame();
                 jFrame.setBounds(400, 200, 600, 500);
-                jFrame.add(subView,"Center");
+                jFrame.add(subView, "Center");
                 subView.setVisible(true);
+                jFrame.setVisible(true);
+            }
+        });
+        /** 查看已订阅的节目信息*/
+        showTvshows.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        String s = "已订阅的节目信息如下：\n\n";
+                        s += "节目名称  " + "频道序号  " + "开始时间  " + "结束时间" + "  \n";
+
+                        for (int j = 0; j < tvshows_num; j++) {
+                            //if(tvshows[j].isSub()==true){
+                            //s +=tvshows[j].get_name()+"  "+tvshows[j].get_cid()+"  "+tvshows[j].get_start_time()+"  "+tvshows[j].get_end_time();
+                            //}
+                            s += "\n";
+                        }
+                        JOptionPane.showMessageDialog(null, s, "查询结果", JOptionPane.CLOSED_OPTION);
+                    }
+
+                });
+
+        /** 查看已订阅的频道信息*/
+        showChannels.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String s = "已订阅的频道信息如下：\n\n";
+                        s += "频道名称     " + "频道序号  " + "\n";
+                        int channels_num = -1;//订阅的频道个数
+                        for (int j = 0; j < channels_num; j++) {
+                            //if(channels[j].isLiked()==true){
+                            //  s +=channels[j].get_name()+"     "+channels[j].get_cid();
+                            //}
+                            s += "\n";
+                        }
+                        JOptionPane.showMessageDialog(null, s, "查询结果", JOptionPane.CLOSED_OPTION);
+                    }
+                });
+
+        /** 订阅节目 */
+        subTvshows.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SubView subTvShowView = SubscribeController.getInstance().goToSubShows();
+                JFrame jFrame = new JFrame();
+                jFrame.setBounds(400, 200, 600, 500);
+                jFrame.add(subTvShowView, "Center");
+                subTvShowView.setVisible(true);
                 jFrame.setVisible(true);
             }
         });

@@ -1,5 +1,6 @@
 package controller;
 
+import main.Callback;
 import model.TvChannelModel;
 import model.TvShowModel;
 import utils.TvUtil;
@@ -24,7 +25,11 @@ public class SubscribeController {
     }
 
     public void getTvInfo() {
+       getTvInfo(new Callback());
+    }
+    public void getTvInfo(Callback callback) {
         tvChannelInfo = TvUtil.getInstance().getChannelInfo();
+        callback.onEnd();
     }
 
     public SubView goToSubShows() {

@@ -24,4 +24,5 @@ public class SubView extends JPanel {
         add(table.getTableHeader(), BorderLayout.NORTH);
         add(table, BorderLayout.CENTER);
     }
+
 }

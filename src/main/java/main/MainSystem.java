@@ -18,7 +18,6 @@ public class MainSystem {
             @Override
             public void onEnd() {
                 menuView = new MenuView(new Callback());
-                SubscribeController.getInstance().getTvInfo();
             }
         });
     }
