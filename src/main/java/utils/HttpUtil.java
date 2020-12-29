@@ -9,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -62,18 +63,19 @@ public class HttpUtil {
         try {
             Response response = okHttpClient.newCall(request).execute();
             if (response.code() == 200) {
-                ResponseBody body = response.body();
-                if (body != null) {
+                String data = response.body().string();
+                if (!data.equals("")) {
                     Gson gson = new Gson();
-                    ChannelResponse channelResponse = gson.fromJson(body.string(), ChannelResponse.class);
-                    return channelResponse;
+                    return gson.fromJson(data, ChannelResponse.class);
                 }
             }
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "网络连接错误!\n错误地址" + url + "\n" + "错误原因：" + e);
             throw new RuntimeException("同步http GET 请求失败,url:" + url, e);
         }
         return null;
     }
+
     public TvShowResponse getShowInfo(String url) {
         if (url == null || "".equals(url)) {
             return null;
@@ -86,8 +88,7 @@ public class HttpUtil {
                 ResponseBody body = response.body();
                 if (body != null) {
                     Gson gson = new Gson();
-                    TvShowResponse tvShowResponse = gson.fromJson(body.string(), TvShowResponse.class);
-                    return tvShowResponse;
+                    return gson.fromJson(body.string(), TvShowResponse.class);
                 }
             }
         } catch (IOException e) {

@@ -11,8 +11,6 @@ import javax.swing.*;
 
 
 public class MenuView extends JFrame {
-    Callback callback;
-    private Container container = getContentPane();
     private JPanel menuPanel = new JPanel();
     /*按钮部分*/
     private JButton showTvshows = new JButton("已订阅的节目");
@@ -20,19 +18,16 @@ public class MenuView extends JFrame {
     private JButton subTvshows = new JButton("订阅节目");
     private JButton subChannels = new JButton("订阅频道");
 
-    public MenuView(Callback callback) {
+    public MenuView() {
         setTitle("欢迎登录网络电视频道订阅系统");
         // 设计窗体大小
         setBounds(400, 200, 600, 500);
         // 添加一块桌布
-        container.setLayout(new BorderLayout());
-        JLabel loadingLabel = new JLabel("加载中...");
-        container.add(loadingLabel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         //网络连接获取数据
-        this.callback = callback;
 
+        init();
     }
 
     private void init() {
@@ -55,7 +50,8 @@ public class MenuView extends JFrame {
         menuPanel.add(showChannels);
         menuPanel.add(subTvshows);
         menuPanel.add(subChannels);
-        container.add(menuPanel, "Center");
+        add(menuPanel, "Center");
+        addListener();
     }
 
     private void addListener() {

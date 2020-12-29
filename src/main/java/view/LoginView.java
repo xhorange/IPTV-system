@@ -63,8 +63,6 @@ public class LoginView extends JFrame {
                         int loginFlag = LoginController.getInstance().login(username, password);
                         if (loginFlag == USER_OR_PASSWORD_NULL) {
                             JOptionPane.showMessageDialog(null, "用户名密码不能为空");
-
-
                         } else if (loginFlag == LOGIN_SUCCESS) {
                             JOptionPane.showMessageDialog(null, "登录成功");
                             callback.onEnd();

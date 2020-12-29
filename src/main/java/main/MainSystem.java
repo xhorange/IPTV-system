@@ -3,7 +3,6 @@ package main;
 import controller.SubscribeController;
 import view.LoginView;
 import view.MenuView;
-import view.SubView;
 
 public class MainSystem {
     private LoginView loginView;
@@ -18,7 +17,7 @@ public class MainSystem {
             @Override
             public void onEnd() {
                 SubscribeController.getInstance().init();
-                menuView = new MenuView(new Callback());
+                menuView = new MenuView();
             }
         });
     }

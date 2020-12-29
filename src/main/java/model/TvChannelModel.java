@@ -9,13 +9,14 @@ public class TvChannelModel {
     //频道id
     @SerializedName("channel_id")
     private String channelId;
-    @SerializedName("channelName")
+    @SerializedName("channel_name")
     private String channelName;
-    @SerializedName("isLive")
+    @SerializedName("is_ive")
     private String liveShow;
     //关注，ture表示已关注，false表示为关注
-    @SerializedName("is_liked")
+    @SerializedName("is_sub")
     private boolean isLiked;
+    private List<TvShowModel> tvShows;
 
     public String getChannelId() {
         return channelId;
@@ -31,5 +32,13 @@ public class TvChannelModel {
 
     public String getLiveShow() {
         return liveShow;
+    }
+
+    public List<TvShowModel> getTvShows() {
+        return tvShows;
+    }
+
+    public void setTvShows(List<TvShowModel> tvShows) {
+        this.tvShows = tvShows;
     }
 }

@@ -20,7 +20,7 @@ public class ChannelResponse {
             return userId;
         }
 
-        @SerializedName("program_list")
+        @SerializedName("channel_list")
         private List<TvChannelModel> channelList;
 
         public List<TvChannelModel> getChannelList() {
@@ -39,4 +39,5 @@ public class ChannelResponse {
     public String getMessage() {
         return message;
     }
+
 }
