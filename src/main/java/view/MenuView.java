@@ -1,7 +1,7 @@
 package view;
 
 import controller.SubscribeController;
-import controller.UserController;
+import controller.LoginController;
 import main.Callback;
 
 import java.awt.*;
@@ -32,19 +32,12 @@ public class MenuView extends JFrame {
         setVisible(true);
         //网络连接获取数据
         this.callback = callback;
-        SubscribeController.getInstance().getTvInfo(new Callback() {
-            @Override
-            public void onEnd() {
-                container.removeAll();
-                init();
-                addListener();
-            }
-        });
+
     }
 
     private void init() {
         menuPanel.setLayout(null);
-        JLabel userLabel = new JLabel("当前用户：" + UserController.getInstance().getUserModel().getUserName());
+        JLabel userLabel = new JLabel("当前用户：" + LoginController.getInstance().getUserModel().getUserName());
         userLabel.setFont(new Font("宋体", Font.BOLD, 20));
         userLabel.setBounds(50, 35, 200, 20);
         menuPanel.add(userLabel);

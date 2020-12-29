@@ -3,20 +3,20 @@ package model;
 import com.google.gson.annotations.SerializedName;
 
 public class TvShowModel {
-    @SerializedName("channel_id")
+    @SerializedName("channel_name")
     private String channelName;
-    @SerializedName("tv_show_id")
+    @SerializedName("id")
     private int tvShowId;
-    @SerializedName("tv_channel_id")
+    @SerializedName("channel_id")
     private int channelId;
-    @SerializedName("title")
+    @SerializedName("name")
     private String tvShowName;
-    @SerializedName("showTime")
+    @SerializedName("show_time")
     private String showTime;
-    @SerializedName("columnBackvideourl")
-    private String columnBackVideoUrl;
+    @SerializedName("url")
+    private String url;
     @SerializedName("is_sub")
-    private boolean isSub = true;
+    private boolean isSub;
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
@@ -34,8 +34,8 @@ public class TvShowModel {
         return showTime;
     }
 
-    public String getColumnBackVideoUrl() {
-        return columnBackVideoUrl;
+    public String getUrl() {
+        return url;
     }
 
     public String getChannelName() {

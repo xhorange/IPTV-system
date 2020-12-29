@@ -1,14 +1,14 @@
 package view;
 
-import controller.UserController;
+import controller.LoginController;
 import main.Callback;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import static controller.UserController.LOGIN_SUCCESS;
-import static controller.UserController.USER_OR_PASSWORD_NULL;
+import static controller.LoginController.LOGIN_SUCCESS;
+import static controller.LoginController.USER_OR_PASSWORD_NULL;
 
 public class LoginView extends JFrame {
     private JTextField usernameField = new JTextField();
@@ -60,7 +60,7 @@ public class LoginView extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         String username = usernameField.getText();
                         String password = passwordField.getText();
-                        int loginFlag = UserController.getInstance().login(username, password);
+                        int loginFlag = LoginController.getInstance().login(username, password);
                         if (loginFlag == USER_OR_PASSWORD_NULL) {
                             JOptionPane.showMessageDialog(null, "用户名密码不能为空");
 

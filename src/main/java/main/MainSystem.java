@@ -17,6 +17,7 @@ public class MainSystem {
         loginView = new LoginView(new Callback() {
             @Override
             public void onEnd() {
+                SubscribeController.getInstance().init();
                 menuView = new MenuView(new Callback());
             }
         });

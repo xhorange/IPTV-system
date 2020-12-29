@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
     @SerializedName("user_id")
-    private String userId;
+    private int userId;
     @SerializedName("user_name")
     private String userName;
     @SerializedName("password")
     private String password;
 
-    public UserModel(String userId, String userName, String password) {
+    public UserModel(int userId, String userName, String password) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -28,7 +28,7 @@ public class UserModel {
         return password;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

@@ -16,8 +16,6 @@ public class TvChannelModel {
     //关注，ture表示已关注，false表示为关注
     @SerializedName("is_liked")
     private boolean isLiked;
-    @SerializedName("list")
-    private List<TvShowModel> list;
 
     public String getChannelId() {
         return channelId;
@@ -33,9 +31,5 @@ public class TvChannelModel {
 
     public String getLiveShow() {
         return liveShow;
-    }
-
-    public List<TvShowModel> getList() {
-        return list;
     }
 }
