@@ -2,11 +2,11 @@ package utils;
 
 public class HttpUrl {
     //所有节目信息
-    public static final String TV_SHOW_INFO = "http://localhost:88/show.json";
+    public static final String TV_SHOW_INFO = "http://localhost/show";
     //已订阅节目信息
     public static final String SUB_TV_SHOW_INFO = "http://127.0.0.1:33333/api/v1/iptv/program_ref_list";
     //所有频道信息
-    public static final String TV_CHANNEL_INFO = "http://localhost:88/channel.json";
+    public static final String TV_CHANNEL_INFO = "http://localhost/channel.json";
     //已订阅频道信息
     public static final String SUB_TV_CHANNEL_INFO = "http://127.0.0.1:33333/api/v1/iptv/channel_ref_list";
 //    //所有节目信息

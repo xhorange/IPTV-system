@@ -16,6 +16,7 @@ public class SubscribeController {
     private List<TvShowModel> subTvShows;
     private List<TvChannelModel> allChannels;
     private List<TvChannelModel> SubChannels;
+    private SubView subView;
     private int page;
 
     public static SubscribeController getInstance() {
@@ -39,12 +40,14 @@ public class SubscribeController {
             return;
         }
         StringBuffer showUrl = new StringBuffer();
+        // TODO: 2020/12/30 测试
         showUrl.append(HttpUrl.TV_SHOW_INFO)
-                .append("?channel_id=")
-                .append(allChannels.get(index).getChannelId());
+//                .append("?channel_id=")
+                .append(allChannels.get(index).getChannelId())
+                .append(".json");
         TvShowResponse response = HttpUtil.getInstance().getShowInfo(showUrl.toString());
         if (response != null && response.getData() != null && response.getData().getTvShowList() != null) {
-                allChannels.get(index).setTvShows(response.getData().getTvShowList());
+            allChannels.get(index).setTvShows(response.getData().getTvShowList());
         }
     }
 
@@ -53,13 +56,12 @@ public class SubscribeController {
     }
 
     public SubView goToSubShows() {
-        page=0;
-        return showTvShows(allChannels.get(page).getTvShows(),false);
+        page = 0;
+        return showTvShows(allChannels.get(page).getTvShows(), false);
     }
 
     public SubView showSubSHows() {
-
-        return showTvShows(subTvShows,true);
+        return showTvShows(subTvShows, true);
     }
 
     public SubView goToSubChannels() {
@@ -71,10 +73,9 @@ public class SubscribeController {
         return showChannels(allChannels);
     }
 
-
-    public SubView showTvShows(List<TvShowModel> tvShows,boolean isSub) {
+    public SubView showTvShows(List<TvShowModel> tvShows, boolean isSub) {
         if (tvShows == null) {
-            page=0;
+            page = 0;
             getTvInfo(0);
         }
         String[][] tvShowInfo = new String[tvShows.size()][6];
@@ -90,11 +91,10 @@ public class SubscribeController {
             tvShowInfo[count][5] = String.valueOf(tvShowModel.getTvShowId());
             count++;
         }
-        SubView subView;
-        if (isSub){
+        if (isSub) {
             subView = new SubView(tvShowInfo, title);
-        }else {
-            subView=new SubView(tvShowInfo,title,tvShows.get(0).getChannelName());
+        } else {
+            subView = new SubView(tvShowInfo, title, tvShows.get(0).getChannelName());
         }
 
         return subView;
@@ -105,10 +105,9 @@ public class SubscribeController {
         //int showID = Integer.parseInt((String) table.getValueAt(index, 5));
         TvShowModel selectedTvShow = allChannels.get(page).getTvShows().get(index);
         selectedTvShow.setSub(!selectedTvShow.isSub());
-        table.setValueAt(selectedTvShow.isSub() ? "已订阅" : "未订阅", index, table.getColumnCount()-1);
+        table.setValueAt(selectedTvShow.isSub() ? "已订阅" : "未订阅", index, table.getColumnCount() - 1);
         // TODO: 2020/12/29 发起网络请求
     }
-
 
     public SubView showChannels(List<TvChannelModel> channelList) {
         if (channelList == null) {
@@ -120,12 +119,45 @@ public class SubscribeController {
         while (iterator.hasNext()) {
             TvChannelModel tvChannelModel = iterator.next();
             channelInfo[count][1] = tvChannelModel.getChannelName();
-            channelInfo[count][2] = tvChannelModel.isLiked()? "已订阅" : "未订阅";
+            channelInfo[count][2] = tvChannelModel.isLiked() ? "已订阅" : "未订阅";
             channelInfo[count][3] = String.valueOf(tvChannelModel.getChannelId());
             count++;
         }
-        subView = new SubView(channelInfo, title);
-        return subView;
+        return new SubView(channelInfo, title);
+    }
+
+    public void upDate(boolean up) {
+        if (up) {
+            page++;
+        } else {
+            page--;
+        }
+        if (page < 0 || page > allChannels.size() - 1) {
+            JOptionPane.showMessageDialog(null, "没有更多频道", "提示", JOptionPane.CLOSED_OPTION);
+            if (up) {
+                page--;
+            } else {
+                page++;
+            }
+            return;
+        }
+        getTvInfo(page);
+        System.out.println(page);
+        List<TvShowModel> tvShows=allChannels.get(page).getTvShows();
+        String[][] tvShowInfo = new String[tvShows.size()][6];
+        String[] title = {"选中", "开始时间", "频道名", "节目名", "订阅情况"};
+        Iterator<TvShowModel> iterator = tvShows.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            TvShowModel tvShowModel = iterator.next();
+            tvShowInfo[count][1] = tvShowModel.getShowTime();
+            tvShowInfo[count][2] = tvShowModel.getChannelName();
+            tvShowInfo[count][3] = tvShowModel.getTvShowName();
+            tvShowInfo[count][4] = tvShowModel.isSub() ? "已订阅" : "未订阅";
+            tvShowInfo[count][5] = String.valueOf(tvShowModel.getTvShowId());
+            count++;
+        }
+        subView.updateTable(tvShowInfo,title);
     }
 }
 
