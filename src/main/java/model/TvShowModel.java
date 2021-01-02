@@ -15,7 +15,7 @@ public class TvShowModel {
     private String showTime;
     @SerializedName("url")
     private String url;
-    @SerializedName("is_sub")
+    @SerializedName("status")
     private boolean isSub;
 
     public void setChannelName(String channelName) {

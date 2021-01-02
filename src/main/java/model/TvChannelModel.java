@@ -13,7 +13,7 @@ public class TvChannelModel {
     @SerializedName("is_ive")
     private String liveShow;
     //关注，ture表示已关注，false表示为关注
-    @SerializedName("is_sub")
+    @SerializedName("status")
     private boolean isSub;
     private List<TvShowModel> tvShows;
 
