@@ -13,8 +13,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static utils.HttpUrl.json;
-
 //工具类 发起网络连接
 public class HttpUtil {
     private static HttpUtil httpUtil;
