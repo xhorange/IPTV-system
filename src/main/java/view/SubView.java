@@ -10,16 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SubView extends JFrame {
+    public static final int SUB_CHANNEL_VIEW=1001;
+    public static final int CHANNEL_VIEW=1002;
+    public static final int SUB_SHOW_VIEW=1003;
+    public static final int SHOW_VIEW=1004;
+
     private JTable table;
     private JButton okBtn;
     private JButton upBtn;
     private JButton downBtn;
     private JPanel mainJpanel;
     private JRadioButton box;
+    private int type;
 
     //查询订阅的节目，频道；订阅频道
-    public SubView(String[][] info, String[] title) {
-        setBounds(400, 200, 600, 500);
+    public SubView(String[][] info, String[] title,int type) {
+        this.type=type;
+        setBounds(450, 180, 600, 500);
         JPanel mainJpanel = new JPanel(new BorderLayout());
         okBtn = new JButton("订阅/取消订阅");
         table = new JTable(info, title);
@@ -41,8 +48,9 @@ public class SubView extends JFrame {
     }
 
     //节目订阅频道
-    public SubView(String[][] info, String[] title, String channel) {
-        setBounds(400, 200, 600, 500);
+    public SubView(String[][] info, String[] title, String channel,int type) {
+        this.type=type;
+        setBounds(450, 180, 600, 500);
         mainJpanel = new JPanel(new BorderLayout());
         JLabel channelLabel = new JLabel("当前频道" + channel);
         okBtn = new JButton("订阅/取消订阅");
@@ -90,7 +98,7 @@ public class SubView extends JFrame {
         okBtn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        SubscribeController.getInstance().subscribeShow(table);
+                        SubscribeController.getInstance().subscribeShow(table,type);
                         // TODO: 2020/12/29 订阅失败的结果
                         JOptionPane.showMessageDialog(null, "订阅成功！", "订阅结果", JOptionPane.CLOSED_OPTION);
                     }

@@ -2,7 +2,6 @@ package model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TvChannelModel {
@@ -15,7 +14,7 @@ public class TvChannelModel {
     private String liveShow;
     //关注，ture表示已关注，false表示为关注
     @SerializedName("is_sub")
-    private boolean isLiked;
+    private boolean isSub;
     private List<TvShowModel> tvShows;
 
     public String getChannelId() {
@@ -26,8 +25,12 @@ public class TvChannelModel {
         return channelName;
     }
 
-    public boolean isLiked() {
-        return isLiked;
+    public boolean isSub() {
+        return isSub;
+    }
+
+    public void setSub(boolean sub) {
+        isSub = sub;
     }
 
     public String getLiveShow() {

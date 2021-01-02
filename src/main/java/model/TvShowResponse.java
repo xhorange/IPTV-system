@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class TvShowResponse {
+    @SerializedName("code")
+    private int code;
     @SerializedName("data")
     private Data data;
     @SerializedName("msg")
@@ -16,6 +18,10 @@ public class TvShowResponse {
         public List<TvShowModel> getTvShowList() {
             return tvShowList;
         }
+    }
+
+    public int getCode() {
+        return code;
     }
 
     public Data getData() {

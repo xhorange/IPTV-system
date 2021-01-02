@@ -1,94 +1,161 @@
 package view;
 
-import controller.SubscribeController;
 import controller.LoginController;
+import controller.SubscribeController;
 import main.Callback;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MenuView extends JFrame {
-    private JPanel menuPanel = new JPanel();
-    /*按钮部分*/
-    private JButton showTvshows = new JButton("已订阅的节目");
-    private JButton showChannels = new JButton("已订阅的频道");
-    private JButton subTvshows = new JButton("订阅节目");
-    private JButton subChannels = new JButton("订阅频道");
+import main.Callback;
+
+
+import static controller.LoginController.LOGIN_SUCCESS;
+import static controller.LoginController.USER_OR_PASSWORD_NULL;
+
+public class MenuView extends JFrame implements ActionListener,MouseListener {
+
+    private JButton showTvshows;
+    private JButton showChannels;
+    private JButton subTvshows;
+    private JButton subChannels;
+    private JButton exit;
+
+
+    private JLabel usernameLabel;
+    private JLabel welcomeLabel;
 
     public MenuView() {
-        setTitle("欢迎登录网络电视频道订阅系统");
-        // 设计窗体大小
-        setBounds(400, 200, 600, 500);
-        // 添加一块桌布
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-        //网络连接获取数据
 
-        init();
+        this.setBounds(400, 200, 550, 450);
+
+        this.setUndecorated(true);
+        this.setLocationRelativeTo(null);
+
+        welcomeLabel = new JLabel("欢迎登录网络电视频道订阅系统");
+        welcomeLabel.setBounds(140, 10, 300, 35);
+        welcomeLabel.setForeground(Color.white);
+        welcomeLabel.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+        this.add(welcomeLabel);
+
+        usernameLabel = new JLabel("当前用户：" + LoginController.getInstance().getUserModel().getUserName());
+        usernameLabel.setBounds(160, 60, 200, 35);
+        usernameLabel.setForeground(Color.white);
+        usernameLabel.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+        this.add(usernameLabel);
+
+
+        showTvshows = new JButton("已订阅的节目");
+        showTvshows.setFont(new Font("微软雅黑",Font.PLAIN,18));
+        showTvshows.setBounds(170, 120, 210, 35);
+        showTvshows.setForeground(Color.white);
+        showTvshows.setOpaque(false);
+        showTvshows.setContentAreaFilled(false);
+        this.add(showTvshows);
+        showTvshows.addActionListener(this);
+
+
+        showChannels = new JButton("已订阅的频道");
+        showChannels.setFont(new Font("微软雅黑",Font.PLAIN,18));
+        showChannels.setBounds(170, 190, 210, 35);
+        showChannels.setForeground(Color.white);
+        showChannels.setOpaque(false);
+        showChannels.setContentAreaFilled(false);
+        this.add(showChannels);
+        showChannels.addActionListener(this);
+
+
+        subTvshows = new JButton("订阅节目");
+        subTvshows.setFont(new Font("微软雅黑",Font.PLAIN,18));
+        subTvshows.setBounds(170, 260, 210, 35);
+        subTvshows.setForeground(Color.white);
+        subTvshows.setOpaque(false);
+        subTvshows.setContentAreaFilled(false);
+        this.add(subTvshows);
+        subTvshows.addActionListener(this);
+
+
+
+        subChannels = new JButton("订阅频道");
+        subChannels.setFont(new Font("微软雅黑",Font.PLAIN,18));
+        subChannels.setBounds(170, 330, 210, 35);
+        subChannels.setForeground(Color.white);
+        subChannels.setOpaque(false);
+        subChannels.setContentAreaFilled(false);
+        this.add(subChannels);
+        subChannels.addActionListener(this);
+
+
+        exit = new JButton("退 出");
+        exit.setFont(new Font("微软雅黑",Font.PLAIN,18));
+        exit.setBounds(170, 400, 210, 35);
+        exit.setOpaque(false);
+        exit.setContentAreaFilled(false);
+        exit.setForeground(Color.white);
+        this.add(exit);
+        exit.addActionListener(this);
+
+
+        this.add(new SubPanel());
+        this.setVisible(true);
+
+
+
+    }
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == showTvshows){
+            SubView subView = SubscribeController.getInstance().showSubSHows();
+            subView.setTitle("查看已订阅节目");
+            subView.setVisible(true);
+        }
+
+        if (e.getSource() == showChannels) {
+            SubView subView = SubscribeController.getInstance().showSubChannels();
+            subView.setTitle("查看已订阅频道");
+            subView.setVisible(true);
+        }
+
+        if (e.getSource() == subTvshows) {
+            SubView subView = SubscribeController.getInstance().goToSubShows();
+            subView.setTitle("订阅节目");
+            subView.setVisible(true);
+        }
+
+        if (e.getSource() == subChannels) {
+            SubView subView = SubscribeController.getInstance().goToSubChannels();
+            subView.setTitle("查看已订阅频道");
+            subView.setVisible(true);
+        }
+
+        if (e.getSource() == exit) {
+            JOptionPane.showMessageDialog(null, "退出成功！");
+            setVisible(false);
+        }
     }
 
-    private void init() {
-        menuPanel.setLayout(null);
-        JLabel userLabel = new JLabel("当前用户：" + LoginController.getInstance().getUserModel().getUserName());
-        userLabel.setFont(new Font("宋体", Font.BOLD, 20));
-        userLabel.setBounds(50, 35, 200, 20);
-        menuPanel.add(userLabel);
-        /*按钮部分*/
-        Font ButtonFont = new Font("宋体", Font.PLAIN, 18);
-        showTvshows.setBounds(165, 100, 250, 30);
-        showTvshows.setFont(ButtonFont);
-        showChannels.setBounds(165, 160, 250, 30);
-        showChannels.setFont(ButtonFont);
-        subTvshows.setBounds(165, 220, 250, 30);
-        subTvshows.setFont(ButtonFont);
-        subChannels.setBounds(165, 280, 250, 30);
-        subChannels.setFont(ButtonFont);
-        menuPanel.add(showTvshows);
-        menuPanel.add(showChannels);
-        menuPanel.add(subTvshows);
-        menuPanel.add(subChannels);
-        add(menuPanel, "Center");
-        addListener();
+    public void mouseClicked(MouseEvent e) {
+
     }
 
-    private void addListener() {
-        //订阅节目
-        subTvshows.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SubView subView = SubscribeController.getInstance().goToSubShows();
-                subView.setTitle("订阅节目");
-                subView.setVisible(true);
-            }
-        });
-        /** 查看已订阅的节目信息*/
-        showTvshows.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SubView subView = SubscribeController.getInstance().showSubSHows();
-                        subView.setTitle("查看已订阅节目");
-                        subView.setVisible(true);
-                    }
-                });
-        showChannels.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SubView subView = SubscribeController.getInstance().showSubChannels();
-                        subView.setTitle("查看已订阅频道");
-                        subView.setVisible(true);
-                    }
-                }
-        );
-        subChannels.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SubView subView = SubscribeController.getInstance().goToSubChannels();
-                        subView.setTitle("查看已订阅频道");
-                        subView.setVisible(true);
-                    }
-                }
-        );
+    public void mousePressed(MouseEvent e) {
+
+    }
+    public void mouseReleased(MouseEvent e) {
+
+    }
+    public void mouseEntered(MouseEvent e) {
+
+
+    }
+    public void mouseExited(MouseEvent e) {
+
+
     }
 }

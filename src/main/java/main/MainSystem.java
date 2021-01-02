@@ -6,6 +6,7 @@ import view.MenuView;
 
 public class MainSystem {
     private LoginView loginView;
+    //private MenuView menuView;
     private MenuView menuView;
 
     public MainSystem() {
@@ -17,6 +18,7 @@ public class MainSystem {
             @Override
             public void onEnd() {
                 SubscribeController.getInstance().init();
+                //menuView = new MenuView();
                 menuView = new MenuView();
             }
         });
