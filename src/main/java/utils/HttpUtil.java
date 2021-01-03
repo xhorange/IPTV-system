@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 public class HttpUtil {
     private static HttpUtil httpUtil;
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .writeTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .build();
 
     public static HttpUtil getInstance() {

@@ -1,7 +1,7 @@
 package utils;
 
 public class HttpUrl {
-    //接口
+    //端口
     public static final String PORT = "http://127.0.0.1:33333";
     //所有节目信息
     public static final String TV_SHOW_INFO = PORT + "/api/v1/iptv/program_list";
