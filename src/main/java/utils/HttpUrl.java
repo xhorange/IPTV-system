@@ -12,5 +12,5 @@ public class HttpUrl {
     //已订阅频道信息
     public static final String SUB_TV_CHANNEL_INFO = PORT + "/api/v1/iptv/channel_ref_list";
     //订阅
-    public static final String SUB_REQUEST = "/api/v1/iptv/sub";
+    public static final String SUB_REQUEST = PORT+"/api/v1/iptv/sub";
 }

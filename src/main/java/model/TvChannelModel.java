@@ -14,7 +14,7 @@ public class TvChannelModel {
     private String liveShow;
     //关注，ture表示已关注，false表示为关注
     @SerializedName("status")
-    private boolean isSub;
+    private int isSub;
     private List<TvShowModel> tvShows;
 
     public String getChannelId() {
@@ -26,11 +26,19 @@ public class TvChannelModel {
     }
 
     public boolean isSub() {
-        return isSub;
+        if (isSub==0){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public void setSub(boolean sub) {
-        isSub = sub;
+        if (sub){
+            isSub=1;
+        }else {
+            isSub=0;
+        }
     }
 
     public String getLiveShow() {

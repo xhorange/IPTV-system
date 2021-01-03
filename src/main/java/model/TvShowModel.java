@@ -16,14 +16,18 @@ public class TvShowModel {
     @SerializedName("url")
     private String url;
     @SerializedName("status")
-    private boolean isSub;
+    private int isSub;
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
     }
 
     public void setSub(boolean sub) {
-        isSub = sub;
+        if (sub) {
+            isSub = 1;
+        } else {
+            isSub = 0;
+        }
     }
 
     public String getTvShowName() {
@@ -51,6 +55,10 @@ public class TvShowModel {
     }
 
     public boolean isSub() {
-        return isSub;
+        if (isSub == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

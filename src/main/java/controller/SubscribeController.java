@@ -43,10 +43,11 @@ public class SubscribeController {
             return;
         }
         StringBuffer showUrl = new StringBuffer();
-        // TODO: 2020/12/30 测试
-        showUrl.append(HttpUrl.TV_SHOW_INFO)
+        showUrl.append(HttpUrl.SUB_TV_SHOW_INFO)
                 .append("?channel_id=")
-                .append(allChannels.get(index).getChannelId());
+                .append(allChannels.get(index).getChannelId())
+                .append("&user_id=")
+                .append(LoginController.getInstance().getUserModel().getUserId());
         TvShowResponse response = HttpUtil.getInstance().getShowInfo(showUrl.toString());
         if (response != null && response.getData() != null && response.getData().getTvShowList() != null) {
             allChannels.get(index).setTvShows(response.getData().getTvShowList());
@@ -87,15 +88,21 @@ public class SubscribeController {
     }
 
     public SubView showSubSHows() {
+        getSubShowInfo();
         return showTvShows(subTvShows, true);
     }
 
     public SubView goToSubChannels() {
+        if (allChannels==null||allChannels.size()==0){
+            getSubChannelInfo();
+        }
         return showChannels(allChannels, false);
     }
 
     public SubView showSubChannels() {
-
+        if (allChannels==null||allChannels.size()==0){
+            getSubChannelInfo();
+        }
         return showChannels(allChannels, true);
     }
 
@@ -107,6 +114,7 @@ public class SubscribeController {
      * @return
      */
     public SubView showTvShows(List<TvShowModel> tvShows, boolean isSub) {
+
         if (tvShows == null) {
             page = 0;
             getTvInfo(0);
@@ -117,19 +125,29 @@ public class SubscribeController {
         int count = 0;
         while (iterator.hasNext()) {
             TvShowModel tvShowModel = iterator.next();
-            tvShowInfo[count][1] = tvShowModel.getShowTime();
-            tvShowInfo[count][2] = tvShowModel.getChannelName();
-            tvShowInfo[count][3] = tvShowModel.getTvShowName();
-            tvShowInfo[count][4] = tvShowModel.isSub() ? "已订阅" : "未订阅";
-            tvShowInfo[count][5] = String.valueOf(tvShowModel.getTvShowId());
-            count++;
+            if (isSub) {
+                if (tvShowModel.isSub()) {
+                    tvShowInfo[count][1] = tvShowModel.getShowTime();
+                    tvShowInfo[count][2] = tvShowModel.getChannelName();
+                    tvShowInfo[count][3] = tvShowModel.getTvShowName();
+                    tvShowInfo[count][4] = tvShowModel.isSub() ? "已订阅" : "未订阅";
+                    tvShowInfo[count][5] = String.valueOf(tvShowModel.getTvShowId());
+                    count++;
+                }
+            } else {
+                tvShowInfo[count][1] = tvShowModel.getShowTime();
+                tvShowInfo[count][2] = tvShowModel.getChannelName();
+                tvShowInfo[count][3] = tvShowModel.getTvShowName();
+                tvShowInfo[count][4] = tvShowModel.isSub() ? "已订阅" : "未订阅";
+                tvShowInfo[count][5] = String.valueOf(tvShowModel.getTvShowId());
+                count++;
+            }
         }
         if (isSub) {
             subView = new SubView(tvShowInfo, title, SubView.SUB_SHOW_VIEW);
         } else {
             subView = new SubView(tvShowInfo, title, tvShows.get(0).getChannelName(), SubView.SHOW_VIEW);
         }
-
         return subView;
     }
 
@@ -197,8 +215,6 @@ public class SubscribeController {
      * @return
      */
     public SubView showChannels(List<TvChannelModel> channelList, boolean isSub) {
-        if (channelList == null) {
-        }
         String[][] channelInfo = new String[allChannels.size()][3];
         String[] title = {"选中", "频道名", "订阅情况"};
         Iterator<TvChannelModel> iterator = allChannels.iterator();
